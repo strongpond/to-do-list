@@ -2,8 +2,7 @@ export const SIGNUP_INFO = {
   status: '회원가입',
   engStatus: 'signup',
   idx: 0,
-  paddingBig: false,
-  bottomText: '계정이 없으신가요?',
+  bottomText: '로그인',
   inputLists: [
     {
       text: '이메일',
@@ -15,7 +14,7 @@ export const SIGNUP_INFO = {
       text: '비밀번호',
       type: 'password',
       value: 'password',
-      placeholder: '6~12자리 사이의 비밀번호을 입력해주세요',
+      placeholder: '8자리 이상의 비밀번호를 입력해주세요',
     },
   ],
   btnLists: [
@@ -33,7 +32,6 @@ export const LOGIN_INFO = {
   status: '로그인',
   engStatus: 'login',
   idx: 1,
-  paddingBig: true,
   bottomText: '회원가입하기',
   inputLists: [
     {
