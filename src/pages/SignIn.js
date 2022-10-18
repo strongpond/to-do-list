@@ -31,9 +31,13 @@ const SignIn = () => {
     if (axios.isAxiosError(result)) {
       alert(result.response.data.message);
     } else {
-      navigate.push('/todo');
+      if (result.data.access_token) {
+        localStorage.setItem('jwt', result.data.access_token);
+        navigate('/todo');
+      } else {
+        alert('엑세스 토큰이 없습니다.');
+      }
     }
-    console.log(result);
   };
 
   const goToSignUp = () => {

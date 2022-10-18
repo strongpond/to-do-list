@@ -8,10 +8,10 @@ function Routes() {
   return (
     <BrowserRouter>
       <Router>
-        <Route exact path="/" component={SignIn} />
-        <Route exact path="/signin" component={SignIn} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/todo" component={ToDo} />
+        <Route exact path="/" element={<SignIn />} />
+        <Route exact path="/signin" element={<SignIn />} />
+        <Route exact path="/signup" element={<SignUp />} />
+        <Route exact path="/todo" element={<ToDo />} />
       </Router>
     </BrowserRouter>
   );
