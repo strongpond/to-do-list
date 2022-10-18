@@ -5,10 +5,9 @@ import styled from 'styled-components';
 
 import UserFormInputs from '../components/UserInput';
 import UserFormBtn from '../components/UserFormBtn';
-import { SIGNUP_INFO } from '../data/formData';
+import { SIGNUP_INFO as form } from '../data/formData';
 
 const SignUp = () => {
-  const form = SIGNUP_INFO;
   const history = useHistory();
 
   const [inputValues, setInputValues] = useState({

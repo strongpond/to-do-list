@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -5,10 +6,10 @@ import styled from 'styled-components';
 
 import UserFormInputs from '../components/UserInput';
 import UserFormBtn from '../components/UserFormBtn';
-import { LOGIN_INFO } from '../data/formData';
+import { LOGIN_INFO as form } from '../data/formData';
+import { signInAPI } from '../api/auth';
 
 const SignIn = () => {
-  const form = LOGIN_INFO;
   const history = useHistory();
   const [inputValues, setInputValues] = useState({
     email: '',
@@ -25,8 +26,18 @@ const SignIn = () => {
     setInputValues(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleClickButton = e => {
-    // TODO: 로그인 클릭 시 구현
+  const handleClickButton = async () => {
+    const result = await signInAPI(inputValues.email, inputValues.password);
+    if (axios.isAxiosError(result)) {
+      alert(result.response.data.message);
+    } else {
+      history.push('/todo');
+    }
+    console.log(result);
+  };
+
+  const goToSignUp = () => {
+    history.push('/signup');
   };
 
   return (
@@ -42,7 +53,7 @@ const SignIn = () => {
           setInputValue={setInputValue}
         />
         <UserFormBtn form={form} handleClickButton={handleClickButton} />
-        <AskAccount>{form.bottomText}</AskAccount>
+        <AskAccount onClick={goToSignUp}>{form.bottomText}</AskAccount>
       </FormBox>
     </MainTop>
   );

@@ -1,3 +1,1 @@
-const IP_ADDRESS = 'localhost';
-
-export const BASE_URL = `http://${IP_ADDRESS}:3000`;
+export const BASE_URL = 'https://pre-onboarding-selection-task.shop';
