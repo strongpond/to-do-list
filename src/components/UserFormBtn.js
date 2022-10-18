@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const UserFormBtn = ({ form, handleClickButton, isDisabled }) => {
-  console.log(isDisabled);
   return (
     <BtnsContainer>
       {form.btnLists.map((list, i) => {

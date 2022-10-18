@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -15,6 +15,29 @@ const SignIn = () => {
     email: '',
     password: '',
   });
+
+  const [isInputValid, setIsInputValid] = useState({
+    emailValid: false,
+    passwordValid: false,
+  });
+
+  const isDisabled = useMemo(() => {
+    return !isInputValid.emailValid || !isInputValid.passwordValid;
+  }, [isInputValid]);
+
+  const allValueCheck = () => {
+    // const reg_email = ;
+    const reg_pwd = /.{8,}/;
+
+    // const isEmailValid = reg_email.test(inputValues.email);
+    const isEmailValid = inputValues.email.includes('@');
+    const isPasswordValid = reg_pwd.test(inputValues.password);
+
+    setIsInputValid({
+      emailValid: isEmailValid,
+      passwordValid: isPasswordValid,
+    });
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -40,9 +63,11 @@ const SignIn = () => {
     }
   };
 
-  const goToSignUp = () => {
-    navigate.push('/signup');
-  };
+  useEffect(() => {
+    if (localStorage.getItem('jwt')) {
+      navigate('/todo');
+    }
+  }, [navigate]);
 
   return (
     <MainTop>
@@ -55,9 +80,14 @@ const SignIn = () => {
           form={form}
           inputValues={inputValues}
           setInputValue={setInputValue}
+          allValueCheck={allValueCheck}
         />
-        <UserFormBtn form={form} handleClickButton={handleClickButton} />
-        <AskAccount onClick={goToSignUp}>{form.bottomText}</AskAccount>
+        <UserFormBtn
+          form={form}
+          handleClickButton={handleClickButton}
+          isDisabled={isDisabled}
+        />
+        <AskAccount to={'/signup'}>{form.bottomText}</AskAccount>
       </FormBox>
     </MainTop>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,6 +10,7 @@ import ToDoEdit from '../components/ToDoEdit';
 let nextId = 4;
 
 const ToDo = () => {
+  const navigate = useNavigate();
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -50,6 +51,12 @@ const ToDo = () => {
       )
     );
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem('jwt')) {
+      navigate('/');
+    }
+  }, [navigate]);
 
   return (
     <MainTop>
