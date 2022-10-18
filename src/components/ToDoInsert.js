@@ -7,11 +7,9 @@ const ToDoInsert = ({ onInsertTodo }) => {
   const onChange = e => {
     setValue(e.target.value);
   };
-  console.log(value);
 
   const onAddList = e => {
     e.preventDefault();
-    console.log(value);
     onInsertTodo(value);
     setValue('');
   };

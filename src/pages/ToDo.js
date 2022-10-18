@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,57 +6,42 @@ import styled from 'styled-components';
 import ToDoInsert from '../components/ToDoInsert';
 import ToDoList from '../components/ToDoList';
 import ToDoEdit from '../components/ToDoEdit';
-
-let nextId = 4;
+import { createToDoAPI, getToDosAPI } from '../api/todo';
 
 const ToDo = () => {
   const navigate = useNavigate();
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: '투두리스트 만들기',
-      checked: true,
-    },
-    {
-      id: 2,
-      text: '로그인 동작 구현하기',
-      checked: true,
-    },
-    {
-      id: 3,
-      text: '리팩토링 및 css 수정하기',
-      checked: false,
-    },
-  ]);
+  const [todos, setTodos] = useState([]);
+  const token = localStorage.getItem('jwt');
 
-  const onInsertTodo = text => {
-    console.log(text);
+  const onInsertTodo = async text => {
     if (text === '') {
       return alert('할 일을 입력해주세요.');
     } else {
-      const todo = {
-        id: nextId,
-        text,
-        checked: false,
-      };
-      setTodos(todos => todos.concat(todo));
-      nextId++;
+      const result = await createToDoAPI(text, token);
+      setTodos(prev => [...prev, result.data]);
     }
   };
 
-  const onCheckToggle = id => {
+  const onCheckToggle = useCallback(id => {
     setTodos(todos =>
       todos.map(todo =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo
+        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
       )
     );
-  };
+  }, []);
+
+  const getTodoList = useCallback(async () => {
+    const result = await getToDosAPI(token);
+    setTodos(result.data);
+  }, [token]);
 
   useEffect(() => {
-    if (!localStorage.getItem('jwt')) {
+    if (!token) {
       navigate('/');
+    } else {
+      getTodoList();
     }
-  }, [navigate]);
+  }, [getTodoList, navigate, token]);
 
   return (
     <MainTop>

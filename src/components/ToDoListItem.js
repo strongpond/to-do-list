@@ -3,12 +3,12 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 import { BsPencilFill, BsTrashFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const ToDoListItem = ({ todo, onCheckToggle }) => {
-  const { id, text, checked } = todo;
+const ToDoListItem = ({ item, onCheckToggle }) => {
+  const { id, todo, isCompleted } = item;
   return (
     <ListItem>
-      <ItemBox className={`${checked ? 'checked' : ''}`}>
-        {checked ? (
+      <ItemBox className={`${isCompleted ? 'isCompleted' : ''}`}>
+        {isCompleted ? (
           <MdCheckBox className="logo" onClick={() => onCheckToggle(id)} />
         ) : (
           <MdCheckBoxOutlineBlank
@@ -16,7 +16,7 @@ const ToDoListItem = ({ todo, onCheckToggle }) => {
             onClick={() => onCheckToggle(id)}
           />
         )}
-        <div className="text">{text}</div>
+        <div className="todo">{todo}</div>
       </ItemBox>
       <EditBox>
         <BsPencilFill className="edit" />
@@ -55,12 +55,12 @@ const ItemBox = styled.div`
     color: #029d06;
   }
 
-  .text {
+  .todo {
     margin-left: 0.5rem;
     flex: 1;
   }
 
-  .checked .text {
+  .isCompleted .todo {
     color: #6c567b;
     text-decoration: line-through;
     cursor: pointer;

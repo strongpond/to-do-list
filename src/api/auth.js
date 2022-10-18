@@ -10,8 +10,8 @@ export const signUpAPI = async (email, password) => {
     const response = await instance.post(
       '/auth/signup',
       {
-        email: email,
-        password: password,
+        email,
+        password,
       },
       {
         headers: {
@@ -30,8 +30,8 @@ export const signInAPI = async (email, password) => {
     const response = await instance.post(
       '/auth/signin',
       {
-        email: email,
-        password: password,
+        email,
+        password,
       },
       {
         headers: {
