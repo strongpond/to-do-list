@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -8,7 +8,7 @@ import UserFormBtn from '../components/UserFormBtn';
 import { SIGNUP_INFO as form } from '../data/formData';
 
 const SignUp = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [inputValues, setInputValues] = useState({
     email: '',

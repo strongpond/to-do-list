@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -10,7 +10,7 @@ import { LOGIN_INFO as form } from '../data/formData';
 import { signInAPI } from '../api/auth';
 
 const SignIn = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [inputValues, setInputValues] = useState({
     email: '',
     password: '',
@@ -31,13 +31,13 @@ const SignIn = () => {
     if (axios.isAxiosError(result)) {
       alert(result.response.data.message);
     } else {
-      history.push('/todo');
+      navigate.push('/todo');
     }
     console.log(result);
   };
 
   const goToSignUp = () => {
-    history.push('/signup');
+    navigate.push('/signup');
   };
 
   return (
