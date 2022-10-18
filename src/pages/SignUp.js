@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -6,10 +7,10 @@ import styled from 'styled-components';
 import UserFormInputs from '../components/UserInput';
 import UserFormBtn from '../components/UserFormBtn';
 import { SIGNUP_INFO as form } from '../data/formData';
+import { signUpAPI } from '../api/auth';
 
 const SignUp = () => {
   const navigate = useNavigate();
-
   const [inputValues, setInputValues] = useState({
     email: '',
     password: '',
@@ -48,8 +49,14 @@ const SignUp = () => {
     setInputValues(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleClickButton = e => {
-    // TODO: 회원가입 클릭 시 로그인페이지로 이동 구현
+  const handleClickButton = async () => {
+    const result = await signUpAPI(inputValues.email, inputValues.password);
+    if (axios.isAxiosError(result)) {
+      alert(result.response.data.message);
+    } else {
+      alert('회원가입이 정상적으로 완료되었습니다. 로그인해주세요');
+      navigate('/');
+    }
   };
 
   return (
@@ -70,7 +77,7 @@ const SignUp = () => {
           handleClickButton={handleClickButton}
           isDisabled={isDisabled}
         />
-        <AskAccount>{form.bottomText}</AskAccount>
+        <AskAccount to={'/'}>{form.bottomText}</AskAccount>
       </FormBox>
     </MainTop>
   );
