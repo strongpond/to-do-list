@@ -1,30 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
+import { BsXLg, BsCheckLg } from 'react-icons/bs';
 import { BsPencilFill, BsTrashFill } from 'react-icons/bs';
 import styled from 'styled-components';
+import { updateToDoAPI, deleteToDoAPI } from '../api/todo';
 
-const ToDoListItem = ({ item, onCheckToggle, deleteTodoList, token }) => {
+const ToDoListItem = ({ item, token, setTodos }) => {
   const { id, todo, isCompleted } = item;
+
+  const [edited, setEdited] = useState(true);
+  const [editValue, setEditValue] = useState(todo);
+
+  const handleEditButton = () => {
+    setEdited(!edited);
+  };
+
+  const onChangeValue = e => {
+    setEditValue(e.target.value);
+  };
+
+  const onEditTodoList = async isCompleted => {
+    const result = await updateToDoAPI(id, editValue, isCompleted, token);
+    setTodos(prev => prev.map(e => (e.id === id ? result.data : e)));
+  };
+
+  const submitEditButton = () => {
+    onEditTodoList(isCompleted);
+    setEdited(!edited);
+  };
+
+  const checkDoneToggle = () => {
+    onEditTodoList(!isCompleted);
+  };
+
+  const deleteTodoList = async () => {
+    const result = await deleteToDoAPI(id, token);
+    if (axios.isAxiosError(result)) {
+      alert('삭제 오류');
+    } else {
+      setTodos(prev => prev.filter(e => e.id !== id));
+    }
+  };
+
   return (
     <ListItem>
-      <ItemBox className={`${isCompleted ? 'isCompleted' : ''}`}>
-        {isCompleted ? (
-          <MdCheckBox className="logo" onClick={() => onCheckToggle(id)} />
-        ) : (
-          <MdCheckBoxOutlineBlank
-            className="logo"
-            onClick={() => onCheckToggle(id)}
-          />
-        )}
-        <div className="todo">{todo}</div>
-      </ItemBox>
-      <EditBox>
-        <BsPencilFill className="edit" />
-        <BsTrashFill
-          className="remove"
-          onClick={() => deleteTodoList(id, token)}
-        />
-      </EditBox>
+      {edited ? (
+        <>
+          <ItemBox className={`${isCompleted ? 'isCompleted' : ''}`}>
+            {isCompleted ? (
+              <MdCheckBox className="logo" onClick={checkDoneToggle} />
+            ) : (
+              <MdCheckBoxOutlineBlank
+                className="logo"
+                onClick={checkDoneToggle}
+              />
+            )}
+            <div className="todo">{todo}</div>
+          </ItemBox>
+          <EditBox>
+            <BsPencilFill className="edit" onClick={handleEditButton} />
+            <BsTrashFill className="remove" onClick={deleteTodoList} />
+          </EditBox>
+        </>
+      ) : (
+        <ItemBox>
+          <EditInput
+            type="text"
+            value={editValue}
+            onChange={onChangeValue}
+          ></EditInput>
+          <BsCheckLg onClick={submitEditButton} />
+          <BsXLg onClick={handleEditButton} />
+        </ItemBox>
+      )}
     </ListItem>
   );
 };
@@ -85,3 +134,5 @@ const EditBox = styled.div`
     cursor: pointer;
   }
 `;
+
+const EditInput = styled.input``;

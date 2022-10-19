@@ -2,16 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import ToDoListItem from './ToDoListItem';
 
-const ToDoList = ({ todos, onCheckToggle, deleteTodoList, token }) => {
+const ToDoList = ({ todos, token, setTodos }) => {
   return (
     <TDList className="ToDoList">
       {todos.map(todo => (
         <ToDoListItem
           item={todo}
-          onCheckToggle={onCheckToggle}
           key={todo.id}
-          deleteTodoList={deleteTodoList}
           token={token}
+          setTodos={setTodos}
         />
       ))}
     </TDList>
