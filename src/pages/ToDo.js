@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -6,7 +7,7 @@ import styled from 'styled-components';
 import ToDoInsert from '../components/ToDoInsert';
 import ToDoList from '../components/ToDoList';
 import ToDoEdit from '../components/ToDoEdit';
-import { createToDoAPI, getToDosAPI } from '../api/todo';
+import { createToDoAPI, getToDosAPI, deleteToDoAPI } from '../api/todo';
 
 const ToDo = () => {
   const navigate = useNavigate();
@@ -43,12 +44,26 @@ const ToDo = () => {
     }
   }, [getTodoList, navigate, token]);
 
+  const deleteTodoList = async (id, token) => {
+    const result = await deleteToDoAPI(id, token);
+    if (axios.isAxiosError(result)) {
+      alert('삭제 오류');
+    } else {
+      setTodos(prev => prev.filter(e => e.id !== id));
+    }
+  };
+
   return (
     <MainTop>
       <FormBox>
         <ToDoHeader>{`TO DO LIST (${todos.length})`}</ToDoHeader>
         <ToDoInsert onInsertTodo={onInsertTodo}></ToDoInsert>
-        <ToDoList todos={todos} onCheckToggle={onCheckToggle}></ToDoList>
+        <ToDoList
+          todos={todos}
+          onCheckToggle={onCheckToggle}
+          deleteTodoList={deleteTodoList}
+          token={token}
+        ></ToDoList>
         <ToDoEdit />
       </FormBox>
     </MainTop>

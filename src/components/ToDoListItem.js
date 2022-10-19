@@ -3,7 +3,7 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 import { BsPencilFill, BsTrashFill } from 'react-icons/bs';
 import styled from 'styled-components';
 
-const ToDoListItem = ({ item, onCheckToggle }) => {
+const ToDoListItem = ({ item, onCheckToggle, deleteTodoList, token }) => {
   const { id, todo, isCompleted } = item;
   return (
     <ListItem>
@@ -20,7 +20,10 @@ const ToDoListItem = ({ item, onCheckToggle }) => {
       </ItemBox>
       <EditBox>
         <BsPencilFill className="edit" />
-        <BsTrashFill className="remove" />
+        <BsTrashFill
+          className="remove"
+          onClick={() => deleteTodoList(id, token)}
+        />
       </EditBox>
     </ListItem>
   );
