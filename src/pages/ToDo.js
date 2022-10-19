@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import ToDoInsert from '../components/ToDoInsert';
 import ToDoList from '../components/ToDoList';
-import ToDoEdit from '../components/ToDoEdit';
 import { createToDoAPI, getToDosAPI } from '../api/todo';
 
 const ToDo = () => {
@@ -34,13 +33,18 @@ const ToDo = () => {
     }
   }, [getTodoList, navigate, token]);
 
+  const goLogout = async () => {
+    localStorage.removeItem('jwt');
+    navigate('/');
+  };
+
   return (
     <MainTop>
       <FormBox>
         <ToDoHeader>{`TO DO LIST (${todos.length})`}</ToDoHeader>
         <ToDoInsert onInsertTodo={onInsertTodo}></ToDoInsert>
         <ToDoList todos={todos} token={token} setTodos={setTodos}></ToDoList>
-        <ToDoEdit />
+        <LogoutButton onClick={goLogout}>로그아웃</LogoutButton>
       </FormBox>
     </MainTop>
   );
@@ -71,4 +75,12 @@ const ToDoHeader = styled.h1`
   margin: 40px;
   font-size: 30px;
   color: rebeccapurple;
+`;
+
+const LogoutButton = styled.button`
+  border: none;
+  background-color: #ffffff;
+  font-size: 15px;
+  color: red;
+  cursor: pointer;
 `;

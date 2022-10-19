@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { MdOutlineAdd } from 'react-icons/md';
+import styled from 'styled-components';
 
 const ToDoInsert = ({ onInsertTodo }) => {
   const [value, setValue] = useState('');
