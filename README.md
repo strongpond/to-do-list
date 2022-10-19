@@ -8,23 +8,22 @@
 
 ## 📍기술 스택
 
-- javaScript
-- react
-- react-router-dom, react-icons
-- axios
-- styled-components
-- prettier, eslint
-
-<img src="https://img.shields.io/badge/React-0099c3?style=flat-square&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/Javascript-yellow?style=flat-square&logo=Javascript&logoColor=white"/>
-<img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white"/>
-<img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
+<img src="https://img.shields.io/badge/React-0099c3?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/Javascript-yellow?style=flat-square&logo=Javascript&logoColor=white"/> <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white"/> <img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
 
 ---
 
 ## 📍 배포 링크
 
 [클릭 👈](https://wanted-pre-onboarding-frontend-tawny.vercel.app//)
+
+---
+
+## 📍 프로그램 실행 방법
+
+```
+$ npm install
+$ npm start
+```
 
 ---
 
@@ -53,15 +52,6 @@ src
 ├─ Routes.js
 ├─ config.js
 └─ index.js
-```
-
----
-
-## 📍 프로그램 실행 방법
-
-```
-$ npm install
-$ npm start
 ```
 
 ---
