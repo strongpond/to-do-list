@@ -3,7 +3,7 @@ import axios from 'axios';
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 import { BsXLg, BsCheckLg } from 'react-icons/bs';
 import { BsPencilFill, BsTrashFill } from 'react-icons/bs';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { updateToDoAPI, deleteToDoAPI } from '../api/todo';
 
 const ToDoListItem = ({ item, token, setTodos }) => {
@@ -12,8 +12,13 @@ const ToDoListItem = ({ item, token, setTodos }) => {
   const [edited, setEdited] = useState(true);
   const [editValue, setEditValue] = useState(todo);
 
-  const handleEditButton = () => {
+  const onClickEditButton = () => {
     setEdited(!edited);
+  };
+
+  const onClickCancelButton = () => {
+    setEdited(!edited);
+    setEditValue(todo);
   };
 
   const onChangeValue = e => {
@@ -47,7 +52,7 @@ const ToDoListItem = ({ item, token, setTodos }) => {
     <ListItem>
       {edited ? (
         <>
-          <ItemBox className={`${isCompleted ? 'isCompleted' : ''}`}>
+          <ItemBox>
             {isCompleted ? (
               <MdCheckBox className="logo" onClick={checkDoneToggle} />
             ) : (
@@ -56,23 +61,27 @@ const ToDoListItem = ({ item, token, setTodos }) => {
                 onClick={checkDoneToggle}
               />
             )}
-            <div className="todo">{todo}</div>
+            <ItemText isCompleted={isCompleted}>{todo}</ItemText>
           </ItemBox>
           <EditBox>
-            <BsPencilFill className="edit" onClick={handleEditButton} />
+            <BsPencilFill className="edit" onClick={onClickEditButton} />
             <BsTrashFill className="remove" onClick={deleteTodoList} />
           </EditBox>
         </>
       ) : (
-        <ItemBox>
-          <EditInput
-            type="text"
-            value={editValue}
-            onChange={onChangeValue}
-          ></EditInput>
-          <BsCheckLg onClick={submitEditButton} />
-          <BsXLg onClick={handleEditButton} />
-        </ItemBox>
+        <>
+          <ItemBox>
+            <EditInput
+              type="text"
+              value={editValue}
+              onChange={onChangeValue}
+            ></EditInput>
+          </ItemBox>
+          <EditBox>
+            <BsCheckLg className="logo" onClick={submitEditButton} />
+            <BsXLg className="beRed" onClick={onClickCancelButton} />
+          </EditBox>
+        </>
       )}
     </ListItem>
   );
@@ -106,18 +115,15 @@ const ItemBox = styled.div`
     font-size: 1.5rem;
     color: #029d06;
   }
+`;
 
-  .todo {
+const ItemText = styled.p`
+  ${({ ...args }) => css`
     margin-left: 0.5rem;
     flex: 1;
-  }
-
-  .isCompleted .todo {
-    color: #6c567b;
-    text-decoration: line-through;
-    cursor: pointer;
-    opacity: 0.6;
-  }
+    color: ${args.isCompleted ? '#908F90' : '#000000'};
+    text-decoration: ${args.isCompleted ? 'line-through' : null};
+  `}
 `;
 
 const EditBox = styled.div`
@@ -133,6 +139,20 @@ const EditBox = styled.div`
   .remove {
     cursor: pointer;
   }
+
+  .logo{
+    color: #029d06;
+  }
+
+  .beRed{
+    color: red;
+  }
 `;
 
-const EditInput = styled.input``;
+const EditInput = styled.input`
+  ${({ theme }) => theme.flex('center', 'center', null)};
+  width: 95%;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+`;

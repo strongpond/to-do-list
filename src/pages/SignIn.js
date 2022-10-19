@@ -26,10 +26,8 @@ const SignIn = () => {
   }, [isInputValid]);
 
   const allValueCheck = () => {
-    // const reg_email = ;
     const reg_pwd = /.{8,}/;
 
-    // const isEmailValid = reg_email.test(inputValues.email);
     const isEmailValid = inputValues.email.includes('@');
     const isPasswordValid = reg_pwd.test(inputValues.password);
 
