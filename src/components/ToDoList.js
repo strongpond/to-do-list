@@ -23,5 +23,6 @@ const TDList = styled.ul`
   margin: 20px;
   padding: 5px;
   width: 80%;
+  height: 350px;
   overflow: auto;
 `;
