@@ -1,24 +1,24 @@
-# wanted-pre-onboarding-frontend
+## ToDo List (CRUD)
 
-## 📍 개요
+### 📍 개요
 
 : 간단한 로그인/회원가입 기능 구현과 TodoList CRUD 구현
 
 ---
 
-## 📍기술 스택
+### 📍기술 스택
 
 <img src="https://img.shields.io/badge/React-0099c3?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/Javascript-yellow?style=flat-square&logo=Javascript&logoColor=white"/> <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=Axios&logoColor=white"/> <img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
 
 ---
 
-## 📍 배포 링크
+### 📍 배포 링크
 
 [클릭 👈](https://wanted-pre-onboarding-frontend-tawny.vercel.app//)
 
 ---
 
-## 📍 프로그램 실행 방법
+### 📍 프로그램 실행 방법
 
 ```
 $ npm install
@@ -27,7 +27,7 @@ $ npm start
 
 ---
 
-## 📍 파일구조
+### 📍 파일구조
 
 ```
 src
@@ -56,9 +56,9 @@ src
 
 ---
 
-## 📍 구현 사항
+### 📍 구현 사항
 
-### 로그인/회원가입
+#### 로그인/회원가입
 
 - Assignment1 : 이메일 & 비밀번호 유효성 검사 ✅
 
@@ -73,7 +73,7 @@ src
 
   +추가구현: 로그아웃 기능
 
-### Todo List
+#### Todo List
 
 - Assignment4 : TodoList Create & Read ✅
 
